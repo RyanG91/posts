@@ -1,6 +1,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const passport = require('passport')
+const session = require('express-session')
 
 const app = express()
 
@@ -20,3 +22,11 @@ mongoose.connect('mongodb://localhost/post', (err) => {
 app.listen(3000, function() {
   console.log('Listening on port 3000!')
 })
+
+/*
+// Start the app on the configured port (or default port)
+const port = process.env.PORT || 3000
+app.listen(port, function () {
+  console.log(`App is running on port ${port}`)
+})
+*/
