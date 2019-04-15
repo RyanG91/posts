@@ -6,14 +6,19 @@ const session = require('express-session')
 
 const app = express()
 
+// Models
+let Post = require('./models/post')
+
+// BodyParser
 app.use(bodyParser.json())
 
+// Homepage
 app.get('/', function (req, res) {
   res.status(200).send("Welcome to the app, it does so much cool stuff")
 })
 
 // Routes
-app.use('/posts', require('./routes/postsRoutes'))
+app.use('/posts', require('./routes/postsRoutes')(Post))
 
 // Mongoose
 mongoose.connect('mongodb://localhost/post', (err) => {
@@ -24,6 +29,7 @@ mongoose.connect('mongodb://localhost/post', (err) => {
   }
 })
 
+// Start the app
 app.listen(3000, function() {
   console.log('Listening on port 3000!')
 })
