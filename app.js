@@ -6,9 +6,14 @@ const session = require('express-session')
 
 const app = express()
 
+app.use(bodyParser.json())
+
 app.get('/', function (req, res) {
-  res.send("Welcome to the app, it does so much cool stuff")
+  res.status(200).send("Welcome to the app, it does so much cool stuff")
 })
+
+// Routes
+app.use('/posts', require('./routes/postsRoutes'))
 
 // Mongoose
 mongoose.connect('mongodb://localhost/post', (err) => {
@@ -22,11 +27,3 @@ mongoose.connect('mongodb://localhost/post', (err) => {
 app.listen(3000, function() {
   console.log('Listening on port 3000!')
 })
-
-/*
-// Start the app on the configured port (or default port)
-const port = process.env.PORT || 3000
-app.listen(port, function () {
-  console.log(`App is running on port ${port}`)
-})
-*/
