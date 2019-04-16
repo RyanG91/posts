@@ -1,13 +1,14 @@
 let postsController = function (Post) {
   let post = function (req, res) {
     // New post
-    if(req.body.title) {
+    if(req.body.title && req.body.content) {
       let posting = new Post(req.body)
       posting.save()
       res.status(201)
       res.send(posting)
     } else {
       res.status(400)
+      res.send('Title and Content are required')
     }
   }
   let get = function (req, res) {

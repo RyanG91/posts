@@ -2,7 +2,7 @@ const express = require('express')
 
 let routes = function (Post) {
   let postsRouter = express.Router()
-  let postsController = require('../controller/postsController')(Post)
+  let postsController = require('../controllers/postsController')(Post)
 
 postsRouter.route('/')
   .post(postsController.post)
