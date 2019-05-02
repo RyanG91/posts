@@ -8,6 +8,7 @@ passport.use(User.createStrategy())
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
+// Registers new users and assigns them role 'user' but doesn't login
 const register = (req, res) => {
   User.register(new User({ 
     email: req.body.email, 
@@ -24,15 +25,11 @@ const login = (req, res) => {
   // Set the session role to the user role so we can use it for authorization
   req.session.role = req.user.role || 'guest' // default to guest if no user or role
   res.status(200).json(req.user)
-
-  
-// router.post('/login', passport.authenticate('local'), (req, res) => {
-//   res.status(200).json(req.user)
-// })
 }
 
 const logout = (req, res) => {
   req.logout()
+  // guest role cannot do get or post requests
   req.session.role = 'guest'
   res.sendStatus(200)
 }
