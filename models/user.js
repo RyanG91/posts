@@ -8,7 +8,9 @@ const passportLocalMongoose = require('passport-local-mongoose')
 
 // We'll start with an empty schema, since we only want the fields provided by Passport for now
 // We can add custom fields for our User model later.
-const User = new Schema({})
+const User = new Schema({
+  role: String
+})
 
 // connect passportLocalMongoose to the User schema and user 'email' instead of 'username'
 User.plugin(passportLocalMongoose, { usernameField: 'email' })
