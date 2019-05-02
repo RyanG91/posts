@@ -37,23 +37,34 @@ let postsController = function (Post) {
   }
   let deleteFunction = function (req, res) {
     // Deletes a post based on an id
-    Post.findById(req.params.postId, function (err, posting) {
-      if (err) {
-        res.status(500).send(err)
-      } else {
-        if (posting) {
-          posting.remove(function (remErr) {
-            if (remErr) {
-              res.status(500).send(remErr)
-            } else {
-              res.status(204).send('removed')
-            }
-          })
-        } else {
-          res.status(500).send('Did not get post to delete')
-        }
-      }
-    })
+
+    Post.findByIdAndRemove(req.params.postId).then(
+      () => res.sendStatus(204)
+    ).catch(
+      error => res.status(500).json({
+        error: error.messaage
+      })
+    )
+
+    // One way
+    // Post.findById(req.params.postId, function (err, posting) {
+    //   if (err) {
+    //     res.status(500).send(err)
+    //   } else {
+    //     if (posting) {
+    //       posting.remove(function (remErr) {
+    //         if (remErr) {
+    //           res.status(500).send(remErr)
+    //         } else {
+    //           res.status(204).send('removed')
+    //         }
+    //       })
+    //     } else {
+    //       res.status(500).send('Did not get post to delete')
+    //     }
+    //   }
+    // })
+
   }
   return {
     post: post,
