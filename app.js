@@ -8,7 +8,26 @@ const session = require('express-session')
 const app = express()
 
 // Models
-let Post = require('./models/post')
+const Post = require('./models/post')
+const User = require('./models/user')
+
+// use static authenticate method of model in LocalStrategy
+passport.use(User.createStrategy())
+
+// use static serialize and deserialize of model for passport session support
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
+
+// use sessions
+// this needs to be done AFTER the serialize and deserialize
+app.use(session({
+  secret: "these are not the droids you're looking for"
+}))
+
+// Initialize Passport and connect it into the Express pipline (with .use)
+app.use(passport.initialize())
+// Connect Passport to the session
+app.use(passport.session())
 
 // BodyParser
 app.use(bodyParser.json())
@@ -23,6 +42,7 @@ app.get('/', function (req, res) {
 
 // Routes
 app.use('/api/posts', require('./routes/postsRoutes')(Post))
+app.use('/api/users', require('./routes/users'))
 
 // Mongoose
 mongoose.connect('mongodb://localhost/post', (err) => {
