@@ -3,10 +3,10 @@ const express = require('express')
 let routes = function (Post) {
   let postsRouter = express.Router()
   let postsController = require('../controllers/postsController')(Post)
-  const { isRegisteredUser } = require('../middleware/auth')
+  const { requireJwt } = require('../middleware/auth')
 
 // Requires uses to login before making a get or post request 
-postsRouter.use('/', isRegisteredUser)
+postsRouter.use('/', requireJwt)
 
 postsRouter.route('/')
 // Handles the post function for any new Postings
