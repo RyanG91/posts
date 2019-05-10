@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const passport = require('passport')
 const cors = require('cors')
 const session = require('express-session')
+const port = process.env.PORT || 3001
 
 const app = express()
 
@@ -46,6 +47,6 @@ mongoose.connect('mongodb://localhost/post', (err) => {
 })
 
 // Start the app
-app.listen(3001, function() {
-  console.log('Listening on port 3001!')
-})
+app.listen(
+  port, () => console.log(`Listening on http://localhost:${port}`)
+)
