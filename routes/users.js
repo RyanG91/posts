@@ -12,7 +12,7 @@ router.post('/login', login, signJwtForUser)
 // Logout
 router.get('/logout', (req, res) => {
   req.logout();
-  req.session.role = 'guest'
+  // req.session.role = 'guest'
   res.sendStatus(200)
 });
 

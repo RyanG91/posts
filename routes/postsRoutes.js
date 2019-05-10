@@ -17,6 +17,7 @@ postsRouter.route('/')
 postsRouter.route('/:postId')
 // Deletes a Posting based on an id
   .delete(postsController.delete)
+// Gets a single Posting based on the id
   .get(postsController.get)
 
   return postsRouter
