@@ -11,10 +11,11 @@ let postsController = function (Post) {
       res.send('Title and Content are required')
     }
   }
+
   let get = function (req, res) {
     // Get a post based on ID
-    if(req.params.postingID) {
-      Post.findById(req.params.postingId, function (err, posting) {
+    if(req.params.postId) {
+      Post.findById(req.params.postId, function (err, posting) {
         if (err) {
           res.status(500).send(err)
         } else if (posting) {
@@ -35,16 +36,18 @@ let postsController = function (Post) {
       })
     }
   }
+
+  let put = function (req, res) {
+    Post.findByIdAndUpdate(req.params.postId, req.body)
+      .then(post => res.send(post))
+      .catch(error => res.sendStatus(500).json({ error: error.message }))
+  }
+
   let deleteFunction = function (req, res) {
     // Deletes a post based on an id
-
-    Post.findByIdAndRemove(req.params.postId).then(
-      () => res.sendStatus(204)
-    ).catch(
-      error => res.status(500).json({
-        error: error.messaage
-      })
-    )
+    Post.findByIdAndRemove(req.params.postId)
+      .then(() => res.sendStatus(204))
+      .catch(error => res.status(500).json({ error: error.messaage }))
 
     // One way
     // Post.findById(req.params.postId, function (err, posting) {
@@ -66,9 +69,11 @@ let postsController = function (Post) {
     // })
 
   }
+
   return {
     post: post,
     get: get,
+    put: put,
     delete: deleteFunction
   }
 }

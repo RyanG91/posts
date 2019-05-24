@@ -3,10 +3,10 @@ const express = require('express')
 let routes = function (Post) {
   let postsRouter = express.Router()
   let postsController = require('../controllers/postsController')(Post)
-  const { requireJwt } = require('../middleware/auth')
+  // const { requireJwt } = require('../middleware/auth')
 
 // Requires uses to login before making a get or post request 
-postsRouter.use('/', requireJwt)
+// postsRouter.use('/', requireJwt)
 
 postsRouter.route('/')
 // Handles the post function for any new Postings
@@ -19,6 +19,8 @@ postsRouter.route('/:postId')
   .delete(postsController.delete)
 // Gets a single Posting based on the id
   .get(postsController.get)
+// Edits a Posting based on the id
+  .put(postsController.put)
 
   return postsRouter
 }
