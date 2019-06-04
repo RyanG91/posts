@@ -15,10 +15,10 @@ The frontend can be found at: https://github.com/RyanG91/posts-frontend.
 * Delete posts
 * Edit posts
 * Created at date
-
-### Future features:
 * Likes counter
 * Dislikes counter
+
+### Future features:
 * Author of posts
 * Tests
 * Potential deployment (Database is currently local)
