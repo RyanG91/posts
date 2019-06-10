@@ -17,10 +17,12 @@ The frontend can be found at: https://github.com/RyanG91/posts-frontend.
 * Created at date
 * Likes counter
 * Dislikes counter
+* Author of posts
 
 ### Future features:
-* Author of posts
 * Tests
+* Create comments for each post
+* Manage like, dislikes, created by and created at for comments
 * Potential deployment (Database is currently local)
 
 These future features may change over time if they are implemented and
