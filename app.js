@@ -38,7 +38,8 @@ app.use('/api/posts', require('./routes/postsRoutes')(Post))
 app.use('/api/users', require('./routes/users'))
 
 // Mongoose
-mongoose.connect('mongodb://localhost/post', (err) => {
+// mongoose.connect('mongodb://localhost/post', (err) => {
+mongoose.connect('mongodb://postingadmin:admin1@ds231387.mlab.com:31387/postings', (err) => {
   if (err) {
     console.log('Error connecting to database', err)
   } else {
