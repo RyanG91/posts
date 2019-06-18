@@ -21,6 +21,7 @@ The frontend can be found at: https://github.com/RyanG91/posts-frontend.
 
 ### Future features:
 * Tests
+* Post images
 * Create comments for each post
 * Manage like, dislikes, created by and created at for comments
 * Potential deployment (Database is currently local)
