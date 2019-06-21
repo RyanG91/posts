@@ -6,6 +6,14 @@ let postsController = function (Post) {
       posting.save()
       res.status(201)
       res.send(posting)
+    } else if (req.body.comments) {
+        Post.findOneAndUpdate(
+          { "_id": req.params.postId },
+          {$push: {comments: req.body.comments}
+        }).then(function () {
+          res.status(201)
+          res.json({ success: true })
+        })
     } else {
       res.status(400)
       res.send('Title and Content are required')
