@@ -7,6 +7,7 @@ let postsController = function (Post) {
       res.status(201)
       res.send(posting)
     } else if (req.body.comments) {
+      // New comment to individual posts
         Post.findOneAndUpdate(
           { "_id": req.params.postId },
           {$push: {comments: req.body.comments}
@@ -46,6 +47,7 @@ let postsController = function (Post) {
   }
 
   let put = function (req, res) {
+    // Edits an existing post
     Post.findByIdAndUpdate(req.params.postId, req.body)
       .then(post => res.send(post))
       .catch(error => res.sendStatus(500).json({ error: error.message }))
