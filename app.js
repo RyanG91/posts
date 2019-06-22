@@ -34,7 +34,7 @@ app.get('/', function (req, res) {
 })
 
 // Routes
-app.use('/api/posts', require('./routes/postsRoutes')(Post))
+app.use('/api/posts', require('./routes/postsRoutes')/* (Post) */)
 app.use('/api/users', require('./routes/users'))
 
 // Mongoose
