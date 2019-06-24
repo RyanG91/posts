@@ -51,6 +51,40 @@ router.delete('/:postId', (req, res) => {
     .catch(error => res.status(500).json({ error: error.messaage }))
 })
 
+// GET a post based on its id
+router.get('/:postId', (req, res) => {
+  if(req.params.postId) {
+    Post.findById(req.params.postId, function (err, posting) {
+      if (err) {
+        res.status(500).send(err)
+      } else if (posting) {
+        res.json(posting)
+      } else {
+        res.status(404).send('Post not found')
+      }
+    })
+  }
+})
+
+// POST a comment for a specific post
+router.post('/:postId/comments', (req, res) => {
+  if (req.body.comments) {
+    // New comment to individual posts
+    Post.findOneAndUpdate(
+      { "_id": req.params.postId },
+      {$push: {comments: req.body.comments}
+    }).then(function () {
+      res.status(201)
+      res.json({ success: true })
+    })
+  }
+})
+
+// GET a comment based on its id and post id
+router.get('/:postId/comments/:commentId', (req, res) => {
+  
+})
+
 /*
 let routes = function (Post) {
   let postsRouter = express.Router()
