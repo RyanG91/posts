@@ -22,6 +22,8 @@ router.post('/', (req, res) => {
   }
 })
 
+// Routes based on postId's
+
 // GET a single post based on its id
 router.get('/:postId', (req, res) => {
   if(req.params.postId) {
@@ -66,24 +68,25 @@ router.get('/:postId', (req, res) => {
   }
 })
 
-// POST a comment for a specific post
+// Comments for each post
+
+// POST a comment for individual posts
 router.post('/:postId/comments', (req, res) => {
-  if (req.body.comments) {
-    // New comment to individual posts
-    Post.findOneAndUpdate(
-      { "_id": req.params.postId },
-      {$push: {comments: req.body.comments}
-    }).then(function () {
-      res.status(201)
-      res.json({ success: true })
-    })
-  }
+  Post.findOneAndUpdate(
+    { "_id": req.params.postId },
+    {$push: {comments: req.body.comments}
+  }).then(function () {
+    res.status(201)
+    res.json({ success: true })
+  })
 })
 
 // GET a comment based on its id and post id
 router.get('/:postId/comments/:commentId', (req, res) => {
-  
+
 })
+
+
 
 /*
 let routes = function (Post) {
