@@ -8,7 +8,13 @@ const Post = new Schema({
   likes: Number,
   dislikes: Number,
   created_by: String,
-  comments: [{ body: String }]
+  comments: [
+    { body: String },
+    { createdBy: String },
+    { createdAt: { type: Date, default: Date.now()} },
+    { likes: Number },
+    { dislikes: Number }
+  ]
 })
 
 module.exports = mongoose.model('Post', Post)
