@@ -9,11 +9,11 @@ const Post = new Schema({
   dislikes: Number,
   created_by: String,
   comments: [
-    { body: String },
-    { createdBy: String },
-    { createdAt: { type: Date, default: Date.now()} },
-    { likes: Number },
-    { dislikes: Number }
+    { body: String, createdBy: String, createdAt: { type: Date, default: Date.now() }, likes: Number, dislikes: Number },
+    // { createdBy: String },
+    // { createdAt: { type: Date, default: Date.now()} },
+    // { likes: Number },
+    // { dislikes: Number }
   ]
 })
 
