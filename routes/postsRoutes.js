@@ -81,22 +81,26 @@ router.post('/:postId/comments', (req, res) => {
   })
 })
 
+// DELETE a specific comment based on its id through the post id
+router.delete('/:postId/comments/:commentId', (req, res) => {
+  Post.findOneAndUpdate(
+    { _id: req.params.postId },
+    { $pull: { comments: { _id: req.params.commentId } }
+  })
+    .then(() => res.sendStatus(204))
+    .catch(error => res.status(500).json({ error: error.messaage }))
+})
+
 // GET a comment based on its id and post id
 router.get('/:postId/comments/:commentId', (req, res) => {
-  if (req.params.postId) {
+  // if (req.params.postId) {
     Post.findOne(
       { _id: req.params.postId },
       { comments: { $elemMatch: { _id: req.params.commentId} }}
-      // { _id: req.params.postId },
-
-      // { $in : commentId} },
-
-      // { _id: req.params.postId },
-      // {$map: {comments: req.body.comments} }
     )
     .then(( comment ) => res.json( comment ))
     .catch(error => res.status(500).json({ error: error.messaage }))
-  }
+  // }
 })
 
 
