@@ -73,8 +73,8 @@ router.get('/:postId', (req, res) => {
 // POST a comment for individual posts
 router.post('/:postId/comments', (req, res) => {
   Post.findOneAndUpdate(
-    { "_id": req.params.postId },
-    {$push: {comments: req.body.comments}
+    { _id: req.params.postId },
+    { $push: { comments: req.body.comments }
   }).then(function () {
     res.status(201)
     res.json({ success: true })
@@ -83,7 +83,20 @@ router.post('/:postId/comments', (req, res) => {
 
 // GET a comment based on its id and post id
 router.get('/:postId/comments/:commentId', (req, res) => {
+  if (req.params.postId) {
+    Post.findOne(
+      { _id: req.params.postId },
+      { comments: { $elemMatch: { _id: req.params.commentId} }}
+      // { _id: req.params.postId },
 
+      // { $in : commentId} },
+
+      // { _id: req.params.postId },
+      // {$map: {comments: req.body.comments} }
+    )
+    .then(( comment ) => res.json( comment ))
+    .catch(error => res.status(500).json({ error: error.messaage }))
+  }
 })
 
 
