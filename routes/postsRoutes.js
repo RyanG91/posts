@@ -91,6 +91,16 @@ router.delete('/:postId/comments/:commentId', (req, res) => {
     .catch(error => res.status(500).json({ error: error.messaage }))
 })
 
+// PUT update a comment based on its id through the post id
+router.put('/:postId/comments/:commentId', (req, res) => {
+  Post.findOneAndUpdate(
+    { _id: req.params.postId, "comments._id" : req.params.commentId },
+    { $set: { 'comments.$.body': req.body.comment } }
+  )
+    .then(res.send(200))
+    .catch(error => res.sendStatus(500).json({ error: error.message }))
+})
+
 // GET a comment based on its id and post id
 router.get('/:postId/comments/:commentId', (req, res) => {
   // if (req.params.postId) {
