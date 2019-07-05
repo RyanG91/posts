@@ -93,12 +93,28 @@ router.delete('/:postId/comments/:commentId', (req, res) => {
 
 // PUT update a comment based on its id through the post id
 router.put('/:postId/comments/:commentId', (req, res) => {
-  Post.findOneAndUpdate(
-    { _id: req.params.postId, "comments._id" : req.params.commentId },
-    { $set: { 'comments.$.body': req.body.comment } }
-  )
-    .then(res.send(200))
-    .catch(error => res.sendStatus(500).json({ error: error.message }))
+  if (req.body.comment) {
+    Post.findOneAndUpdate(
+      { _id: req.params.postId, "comments._id" : req.params.commentId },
+      { $set: { 'comments.$.body': req.body.comment } }
+    )
+      .then(res.send(200))
+      .catch(error => res.sendStatus(500).json({ error: error.message }))
+  } else if (req.body.likes) {
+    Post.findOneAndUpdate(
+      { _id: req.params.postId, "comments._id" : req.params.commentId },
+      { $set: { 'comments.$.likes': req.body.likes } }
+    )
+      .then(res.send(200))
+      .catch(error => res.sendStatus(500).json({ error: error.message }))
+  } else if (req.body.dislikes) {
+    Post.findOneAndUpdate(
+      { _id: req.params.postId, "comments._id" : req.params.commentId },
+      { $set: { 'comments.$.dislikes': req.body.dislikes } }
+    )
+      .then(res.send(200))
+      .catch(error => res.sendStatus(500).json({ error: error.message }))
+  }
 })
 
 // GET a comment based on its id and post id
